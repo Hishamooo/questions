@@ -1,0 +1,136 @@
+<ion-header  >
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- <ion-back-button text='' color="light" defaultHref="/items/{{usta?.sectionid}}"></ion-back-button> -->
+      <ion-back-button text='' color="light" defaultHref="/questions"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{details?.owner.display_name}}
+    </ion-title>
+ 
+
+  </ion-toolbar>
+</ion-header>
+  <ion-content [fullscreen]="true" scrollEvents="true" [appParallax]="img" (ionScroll)="onScroll($event)">
+    <div *ngIf="details" #img class="header-image" [style.background-image]="'url(' + details.owner.profile_image + ')'">
+    </div>
+  
+ <ng-container *ngIf="details">
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-no-padding" class="ion-align-items-center">
+  
+        <ion-col class="ion-align-self-center ion-text-center" size="6">
+            <ion-chip outline="true" color="medium">
+              {{details.view_count}}
+              <ion-icon name="eye" ></ion-icon>
+            </ion-chip>
+          </ion-col>
+          <ion-col class="ion-align-self-center ion-text-center" size="6">
+            {{details.creation_date | date:'dd-MM-yyyy'}}
+            </ion-col>
+  
+      </ion-row>
+     
+    </ion-grid>
+   
+    <div >
+      <ion-list >
+        <ion-card mode="ios">
+          <ion-item *ngIf="details.question_id" lines="full">
+            <ion-label class="ion-text-left ion-text-wrap">
+              <ion-text color="primary">
+                <span> question id :</span>&nbsp;
+              </ion-text>
+              <ion-text color="medium">
+                <span>{{details.question_id}}</span>
+              </ion-text>
+            </ion-label>
+            <ion-buttons slot="start">
+              <ion-button slot="icon-only">
+                <ion-icon name="barcode" color="tertiary"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+          <ion-item *ngIf="details.content_license" lines="full">
+            <ion-label class="ion-text-left ion-text-wrap">
+              <ion-text color="primary">
+                <span>content license</span>&nbsp;
+              </ion-text>
+              <ion-text color="medium">
+                <span>{{details.content_license}}</span>
+              </ion-text>
+            </ion-label>
+            <ion-buttons slot="start">
+              <ion-button slot="icon-only">
+                <ion-icon name="locate" color="tertiary"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label class="ion-text-left ion-text-wrap">
+              <ion-text color="primary">
+                <span>is answered</span>&nbsp;
+              </ion-text>
+              <ion-text color="medium">
+                <span>{{details.is_answered}}</span>
+              </ion-text>
+            </ion-label>
+            <ion-buttons slot="start">
+              <ion-button slot="icon-only">
+                <ion-icon name="information-circle-outline" color="tertiary"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+          <ion-item *ngIf="details.owner.user_type" lines="full">
+            <ion-label class="ion-text-left ion-text-wrap">
+              <ion-text color="primary">
+                <span>user type</span>&nbsp;
+              </ion-text>
+              <ion-text color="medium">
+                <span>{{details.owner.user_type}}</span>
+              </ion-text>
+            </ion-label>
+            <ion-buttons slot="start">
+              <ion-button slot="icon-only">
+                <ion-icon name="people" color="tertiary"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+          <ion-item  lines="full">
+            <ion-label class="ion-text-left ion-text-wrap">
+              <ion-text color="primary">
+                <span>answer count</span>&nbsp;
+              </ion-text>
+              <ion-text color="medium">
+                <span>{{details.answer_count}}</span>
+              </ion-text>
+            </ion-label>
+            <ion-buttons slot="start">
+              <ion-button slot="icon-only">
+                <ion-icon name="help" color="tertiary"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+         
+     
+         
+          <ion-item  lines="full">
+          
+       
+            <ion-buttons style="align-items: center;"  *ngFor="let item of details.tags;let i=index;" >
+              <ion-button style="color: tertiary;" slot="icon-only">
+                <span>{{item}}</span>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+          
+         
+        
+         
+        </ion-card>
+      </ion-list>
+      
+     
+    </div>
+  </ng-container>
+</ion-content>

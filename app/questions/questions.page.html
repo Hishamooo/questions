@@ -1,0 +1,92 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-back-button text='' color="light">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Questions</ion-title>
+  </ion-toolbar>
+  
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="!orgQuestion">
+    <ion-card mode="ios" detail="false" *ngFor="let n of [1,2,3,4,5,6,7,8,9,10]">
+      <ion-item lines="none">
+        <ion-thumbnail>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label class="ion-text-right">
+          <ion-text color="primary">
+            <h2>
+              <ion-skeleton-text animated style="width: 40%;float: right;"></ion-skeleton-text>
+            </h2>
+          </ion-text>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label class="ion-text-wrap ion-text-right">
+          <ion-skeleton-text animated style="width: 80%;float: right;"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+      <ion-item detail="false" lines="none">
+        <ion-chip outline="true" color="danger">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-chip>
+        <ion-label class="ion-text-wrap ion-text-right" color="medium">
+          <ion-skeleton-text animated style="width: 70%;float: right;"></ion-skeleton-text>
+        </ion-label>
+        <ion-icon name="pin" slot="end" color="medium"></ion-icon>
+      </ion-item>
+    </ion-card>
+  </ng-container>
+  <ng-container *ngIf="consults && consults.length === 0">
+    <ion-list>
+      <ion-item>
+        <ion-label class="ion-text-center" color="danger">
+          <h1>
+           no questions
+          </h1>
+        </ion-label>
+        <ion-icon name="information-circle-outline"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+  <ng-container *ngIf="orgQuestion && orgQuestion.length > 0">
+    <ion-list>
+      <ion-card mode="ios" *ngFor="let item of orgQuestion;let i=index;" [routerLink]="['/questionProfile',item.question_id]"
+        detail="false">
+        <ion-item  lines="full" >
+          <ion-avatar slot="end">
+            <ion-img  [src]="item.owner.profile_image" ></ion-img>
+          </ion-avatar>
+          <ion-label class="ion-text-left">
+            <ion-text class="ion-text-wrap ion-text-left" color="danger">
+              <p>{{item.owner.display_name}}</p>
+            </ion-text>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label class="ion-text-right">
+            <ion-text class="ion-text-wrap ion-text-right" color=dark>
+              <p  style="width: 200;height: 75px;margin-right: 10px;text-align: left;">{{item.title}}</p>
+            </ion-text>
+            
+          </ion-label>
+        </ion-item>
+        <ion-item detail="false" lines="none">
+          answer count :
+          <ion-badge color="primary" style="margin-right: 5px;">{{item.answer_count}}</ion-badge>
+
+            creation date :
+            <ion-badge color="primary" style="margin-right: 5px;">{{item.creation_date | date:'dd-MM-yyyy'}}</ion-badge>
+            
+       
+        </ion-item>
+      </ion-card>
+    </ion-list>
+    <!-- <ion-infinite-scroll threshold="25%" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content loadingSpinner="dots" loadingText="">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll> -->
+  </ng-container>
+</ion-content>
